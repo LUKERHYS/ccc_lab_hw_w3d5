@@ -9,6 +9,7 @@ class Customer
     @name = options['name']
     @funds = options['funds']
   end
+
 ### INSTANCE_METHODS
   def save()
     sql = "INSERT INTO customers (
@@ -17,8 +18,8 @@ class Customer
       $1, $2
       ) RETURNING id"
       values = [@name, @funds]
-      customer = SqlRunner.run(sql, values).first()
-      @id = customer['id'].to_i()
+      customers = SqlRunner.run(sql, values).first()
+      @id = customers['id'].to_i()
   end
 
   def update()

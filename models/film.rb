@@ -10,5 +10,39 @@ class Film
     @price = options['price']
   end
 
-  
+  ### INSTANCE_METHODS
+  def save()
+    sql = "INSERT INTO films (
+    title, price
+    ) VALUES (
+      $1, $2
+      ) RETURNING id"
+      values = [@title, @price]
+      films = SqlRunner.run(sql, values).first()
+      @id = films['id'].to_i()
+  end
+
+  def update()
+    sql = "UPDATE films SET (
+    title, price
+    ) = (
+      $1, $2
+      ) WHERE id = $3"
+      values = [@title, @price, @id]
+      SqlRunner.run(sql, values)
+  end
+
+### CLASS_METHODS
+def self.all()
+  sql = "SELECT * FROM films"
+  films = SqlRunner.run(sql)
+  return films.map{|film| Film.new(film)}
+end
+
+def self.delete_all()
+  sql = "DELETE FROM films"
+  SqlRunner.run(sql)
+end
+
+
 end
