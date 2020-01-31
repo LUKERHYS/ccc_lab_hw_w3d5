@@ -9,6 +9,39 @@ class Customer
     @name = options['name']
     @funds = options['funds']
   end
+### INSTANCE_METHODS
+  def save()
+    sql = "INSERT INTO customers (
+    name, funds
+    ) VALUES (
+      $1, $2
+      ) RETURNING id"
+      values = [@name, @funds]
+      customer = SqlRunner.run(sql, values).first()
+      @id = customer['id'].to_i()
+  end
+
+  def update()
+    sql = "UPDATE customers SET (
+    name, funds
+    ) = (
+      $1, $2
+      ) WHERE id =  $3"
+      values = [@name, @funds, @id]
+      SqlRunner.run(sql, values)
+  end
+
+### CLASS_METHODS
+  def self.all()
+    sql = "SELECT * FROM customers"
+    customers = SqlRunner.run(sql)
+    return customers.map{|customer| Customer.new(customer)}
+  end
+
+  def self.delete_all()
+    sql = "DELETE FROM customers"
+    SqlRunner.run(sql)
+  end
 
 
 end
