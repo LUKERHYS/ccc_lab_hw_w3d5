@@ -6,6 +6,7 @@ require('pry')
 
 Customer.delete_all()
 Film.delete_all()
+Ticket.delete_all()
 
 customer1 = Customer.new({'name' => 'Luke', 'funds' => '85'})
 customer1.save()
@@ -24,6 +25,17 @@ film3 = Film.new({'title' => 'The Aristocats', 'price' => 7})
 film3.save()
 film4 = Film.new({'title' => 'Dumbo', 'price' => 10})
 film4.save()
+
+ticket1 = Ticket.new({'customer_id' => customer1.id, 'film_id' => film1.id})
+ticket1.save()
+ticket2 = Ticket.new({'customer_id' => customer1.id, 'film_id' => film2.id})
+ticket2.save()
+ticket3 = Ticket.new({'customer_id' => customer2.id, 'film_id' => film3.id})
+ticket3.save()
+ticket4 = Ticket.new({'customer_id' => customer4.id, 'film_id' => film4.id})
+ticket4.save()
+ticket5 = Ticket.new({'customer_id' => customer3.id, 'film_id' => film1.id})
+ticket5.save()
 
 
 binding.pry
