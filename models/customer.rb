@@ -54,6 +54,16 @@ end
     SqlRunner.run(sql)
   end
 
+
+  def self.cost_of_film(film)
+    return film.price
+  end
+
+  def self.new_funds(film, customer)
+    customer.funds -= cost_of_film(film)
+    customer.update()
+  end
+
   def self.ticket_count(customer)
     return customer.films().count()
   end
