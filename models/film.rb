@@ -54,4 +54,8 @@ def self.delete_all()
   SqlRunner.run(sql)
 end
 
+def self.customer_count(film)
+  return film.customers().count()
+end
+
 end

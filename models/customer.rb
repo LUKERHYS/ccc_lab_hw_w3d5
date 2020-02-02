@@ -7,7 +7,7 @@ class Customer
   def initialize( options )
     @id = options['id'].to_i() if options['id']
     @name = options['name']
-    @funds = options['funds']
+    @funds = options['funds'].to_i()
   end
 
 ### INSTANCE_METHODS
@@ -54,5 +54,8 @@ end
     SqlRunner.run(sql)
   end
 
+  def self.ticket_count(customer)
+    return customer.films().count()
+  end
 
 end
